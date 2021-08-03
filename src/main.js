@@ -37,7 +37,7 @@ getEvents().forEach((item) => {
 
   item.time.start = dateStart.toLocaleTimeString().slice(0,-3);
   item.time.end = dateEnd.toLocaleTimeString().slice(0,-3);
-  item.time.diff = `${diffHours ? twoDigits(diffHours) + 'H ' : ''}${diffMinutes ? twoDigits(diffMinutes) + 'M' : ''}`;
+  item.time.diff = (diffHours ? twoDigits(diffHours) + 'H ' : '') + (diffMinutes ? twoDigits(diffMinutes) + 'M' : '');
 
   let offerListTemplate = '';
   item.offers.forEach((offer) => {
@@ -76,10 +76,10 @@ function getEvents() {
   return [
     new Event('Taxi Amsterdam', 'taxi.png', '2019-03-18T10:30', '2019-03-18T11:00', 20, [new Offer('Order Uber', 20)], true),
     new Event('Flight Chamonix', 'flight.png', '2019-03-18T12:25', '2019-03-18T13:35', 50, [new Offer('Add luggage', 50), new Offer('Switch to comfort', 80)], false),
-    new Event('Drive Chamonix', 'drive.png', '2019-03-18T14:30', '2019-03-18T16:05', 160, [new Offer('Rent a car', 200)], true)
+    new Event('Drive Chamonix', 'drive.png', '2019-03-18T14:30', '2019-03-18T16:05', 160, [new Offer('Rent a car', 200)], true),
   ];
 }
 
 function twoDigits(num) {
-  return ('0' + num).slice(-2);
+  return (`0${num}`).slice(-2);
 }
