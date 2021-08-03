@@ -37,7 +37,7 @@ getEvents().forEach((item) => {
 
   item.time.start = dateStart.toLocaleTimeString().slice(0,-3);
   item.time.end = dateEnd.toLocaleTimeString().slice(0,-3);
-  item.time.diff = (diffHours ? twoDigits(diffHours) + 'H ' : '') + (diffMinutes ? twoDigits(diffMinutes) + 'M' : '');
+  item.time.diff = (diffHours ? `${twoDigits(diffHours)}H ` : '') + (diffMinutes ? `${twoDigits(diffMinutes)}M` : '');
 
   let offerListTemplate = '';
   item.offers.forEach((offer) => {
