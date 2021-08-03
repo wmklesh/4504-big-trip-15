@@ -6,8 +6,6 @@ import {createTripSortTemplate} from './view/trip-sort-view.js';
 import {createEventsListTemplate} from './view/events-list-view.js';
 import {createEventItemTemplate} from './view/event-item-view.js';
 import {createEventOfferItemTemplate} from './view/event-offer-item-view.js';
-import {createEventFormAddTemplate} from './view/event-form-add-view.js';
-import {createEventFormEditTemplate} from './view/event-form-edit-view.js';
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -50,8 +48,6 @@ getEvents().forEach((item) => {
 });
 
 render(eventsElement, createEventsListTemplate(eventListTemplate), 'beforeend');
-const eventsListElement = eventsElement.querySelector('.trip-events__list');
-//render(eventsListElement, createEventFormAddTemplate(), 'afterbegin');
 
 function getEvents() {
   function Event(title, img, dateStart, dateEnd, price, offers, favorite) {
