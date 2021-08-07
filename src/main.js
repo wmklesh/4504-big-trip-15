@@ -11,6 +11,8 @@ const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
+const events = getEvents();
+
 const pageBodyElement = document.querySelector('.page-body');
 const pageHeaderElement = pageBodyElement.querySelector('.page-header');
 const tripMainElement = pageHeaderElement.querySelector('.trip-main');
@@ -18,14 +20,13 @@ const tripNavigationElement = tripMainElement.querySelector('.trip-controls__nav
 const tripFilterElement = tripMainElement.querySelector('.trip-controls__filters');
 const pageMainElement = document.querySelector('.page-main');
 const eventsElement = pageMainElement.querySelector('.trip-events');
-render(tripMainElement, createTripInfoTemplate(), 'afterbegin');
+render(tripMainElement, createTripInfoTemplate(events), 'afterbegin');
 const tripInfoElement = pageHeaderElement.querySelector('.trip-info');
-render(tripInfoElement, createTripCostTemplate(), 'beforeend');
+render(tripInfoElement, createTripCostTemplate(events), 'beforeend');
 render(tripNavigationElement, createTripNavTemplate(), 'beforeend');
 render(tripFilterElement, createTripFilterTemplate(), 'beforeend');
 render(eventsElement, createTripSortTemplate(), 'beforeend');
 
-const events = getEvents();
 let eventListTemplate = '';
 events.forEach((item) => {
   eventListTemplate += createEventItemTemplate(item);
@@ -34,7 +35,9 @@ events.forEach((item) => {
 render(eventsElement, createEventsListTemplate(eventListTemplate), 'beforeend');
 
 function getEvents() {
-  return Array(20).fill().map(() => {
+  const date = Array(15).fill().map(() => {
     return generateEvent();
   });
+
+  return date.sort((a, b) => a.date.from > b.date.from ? 1 : -1);
 }

@@ -27,9 +27,9 @@ export const createEventItemTemplate = (event) => {
     offerListTemplate += createEventOfferItemTemplate(offer);
   });
 
-  const totalPrice = event.base_price + event.offers.reduce((sum, item) => {
-    return sum += item.price;
-  }, 0);
+  const totalPrice = event.base_price + event.offers.reduce((sum, item) => (
+    sum += item.price
+  ), 0);
 
   return `<li class="trip-events__item">
     <div class="event">
@@ -37,7 +37,7 @@ export const createEventItemTemplate = (event) => {
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${event.type}.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">${event.destination}</h3>
+      <h3 class="event__title">${event.type} ${event.destination}</h3>
       <div class="event__schedule">
         <p class="event__time">
           <time class="event__start-time" datetime="2019-03-18T10:30">${fromTimeStr}</time>
