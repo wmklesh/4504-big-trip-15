@@ -39,9 +39,7 @@ const editEvent = eventsElement.querySelector('.trip-events__item');
 render(editEvent, createEventFormEditTemplate(events[0]), 'beforeend');
 
 function getEvents() {
-  const date = Array(15).fill().map(() => {
-    return generateEvent();
-  });
+  const date = Array(15).fill().map(() => (generateEvent()));
 
   return date.sort((a, b) => a.date.from > b.date.from ? 1 : -1);
 }

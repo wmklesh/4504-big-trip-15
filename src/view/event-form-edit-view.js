@@ -6,7 +6,7 @@ import {OFFERS} from '../mock/offers-mock';
 const createEventGroupTypeTemplate = (type) => (
   `<fieldset class="event__type-group">
     <legend class="visually-hidden">Event type</legend>
-    ${EVENT_TYPES.map(item => (`
+    ${EVENT_TYPES.map((item) => (`
       <div class="event__type-item">
         <input id="event-type-${String(item).toLowerCase()}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}" ${item === type ? 'checked' : ''}>
         <label class="event__type-label  event__type-label--${String(item).toLowerCase()}" for="event-type-${String(item).toLowerCase()}-1">${item}</label>
@@ -16,7 +16,7 @@ const createEventGroupTypeTemplate = (type) => (
 
 const createEventGroupOfferTemplate = (offers, selectOffers) => (
   `<div class="event__available-offers">
-    ${offers.map(offer => (`
+    ${offers.map((offer) => (`
       <div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${selectOffers.some((item) => (item.title === offer.title)) ? 'checked' : ''}>
         <label class="event__offer-label" for="event-offer-luggage-1">
@@ -101,5 +101,5 @@ export const createEventFormEditTemplate = (event) => {
         </section>
       </section>
     </form>
-  </li>`
+  </li>`;
 };

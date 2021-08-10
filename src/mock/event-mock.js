@@ -24,18 +24,16 @@ const generateDestination = () => {
 };
 
 const generateOffers = () => (
-  Array(getRandomInteger(0, 2)).fill().map(() => {
-    return OFFERS[getRandomInteger(0, OFFERS.length - 1)];
-  })
+  Array(getRandomInteger(0, 2)).fill().map(() => (OFFERS[getRandomInteger(0, OFFERS.length - 1)]))
 );
 
 const generatePictures = () => (
-  Array(getRandomInteger(1, 3)).fill().map(() => {
-    return {
-      'src': 'http://picsum.photos/248/152?r=' + getRandomInteger(1, 1000),
+  Array(getRandomInteger(1, 3)).fill().map(() => (
+    {
+      'src': `http://picsum.photos/248/152?r=${getRandomInteger(1, 1000)}`,
       'title': generateDescription(),
-    };
-  })
+    }
+    ))
 );
 
 const generateDescription = (length = 1) => {
