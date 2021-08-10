@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import {twoDigits} from "../utils";
-import {sumEventOffers} from "../utils";
+import {twoDigits} from '../utils';
+import {sumEventOffers} from '../utils';
 import {createEventOfferItemTemplate} from '../view/event-offer-item-view.js';
 
 export const createEventItemTemplate = (event) => {
@@ -64,6 +64,6 @@ export const createEventItemTemplate = (event) => {
         <span class="visually-hidden">Open event</span>
       </button>
     </div>
-  </li>`
+  </li>`;
 };
 

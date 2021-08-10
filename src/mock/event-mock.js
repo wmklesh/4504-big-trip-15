@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import {getRandomInteger} from "../utils";
-import {EVENT_TYPES} from "../const";
-import {OFFERS} from "./offers-mock";
+import {getRandomInteger} from '../utils';
+import {EVENT_TYPES} from '../const';
+import {OFFERS} from './offers-mock';
 
 const generateDate = () => {
   const fromDate = dayjs().add(getRandomInteger(-3, 3), 'd').add(getRandomInteger(-12, 12), 'h').set('m', 0).set('s', 0);
@@ -13,9 +13,9 @@ const generateDate = () => {
   };
 };
 
-const generateType = () => {
-  return EVENT_TYPES[getRandomInteger(0, EVENT_TYPES.length - 1)];
-};
+const generateType = () => (
+  EVENT_TYPES[getRandomInteger(0, EVENT_TYPES.length - 1)]
+);
 
 const generateDestination = () => {
   const destinations = ['Amsterdam', 'Chamonix', 'Geneva'];
@@ -23,20 +23,20 @@ const generateDestination = () => {
   return destinations[getRandomInteger(0, destinations.length - 1)];
 };
 
-const generateOffers = () => {
-  return Array(getRandomInteger(0, 2)).fill().map(() => {
+const generateOffers = () => (
+  Array(getRandomInteger(0, 2)).fill().map(() => {
     return OFFERS[getRandomInteger(0, OFFERS.length - 1)];
-  });
-};
+  })
+);
 
-const generatePictures = () => {
-  return Array(getRandomInteger(1, 3)).fill().map(() => {
+const generatePictures = () => (
+  Array(getRandomInteger(1, 3)).fill().map(() => {
     return {
       'src': 'http://picsum.photos/248/152?r=' + getRandomInteger(1, 1000),
       'title': generateDescription(),
     };
-  });
-};
+  })
+);
 
 const generateDescription = (length = 1) => {
   const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.';
@@ -44,7 +44,7 @@ const generateDescription = (length = 1) => {
   const descriptions = text.split('.');
 
   const result = Array(getRandomInteger(1, length)).fill().map(() => {
-    return descriptions[getRandomInteger(0, descriptions.length - 1)]
+    return descriptions[getRandomInteger(0, descriptions.length - 1)];
   });
 
   return result.join('. ') + '.';

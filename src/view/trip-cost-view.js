@@ -1,4 +1,4 @@
-import {sumEventOffers} from "../utils";
+import {sumEventOffers} from '../utils';
 
 export const createTripCostTemplate = (events) => {
   const cost = events.reduce((sum, event) => (
@@ -7,5 +7,5 @@ export const createTripCostTemplate = (events) => {
 
   return `<p class="trip-info__cost">
     Total: &euro;&nbsp;<span class="trip-info__cost-value">${cost}</span>
-  </p>`
+  </p>`;
 };

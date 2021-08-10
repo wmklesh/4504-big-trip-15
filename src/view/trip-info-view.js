@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 export const createTripInfoTemplate = (events) => {
   const routes = [];
 
   events.forEach((item) => {
-    if (item.destination != routes[routes.length - 1]) {
+    if (item.destination !== routes[routes.length - 1]) {
       routes.push(item.destination);
     }
   });
@@ -21,6 +21,5 @@ export const createTripInfoTemplate = (events) => {
 
       <p class="trip-info__dates">${datesStr}</p>
     </div>
-
-  </section>`
+  </section>`;
 };

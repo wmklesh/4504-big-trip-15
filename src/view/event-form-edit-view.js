@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import {sumEventOffers} from "../utils";
-import {EVENT_TYPES} from "../const";
-import {OFFERS} from "../mock/offers-mock";
+import {sumEventOffers} from '../utils';
+import {EVENT_TYPES} from '../const';
+import {OFFERS} from '../mock/offers-mock';
 
 const createEventGroupTypeTemplate = (type) => (
   `<fieldset class="event__type-group">

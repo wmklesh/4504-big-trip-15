@@ -5,8 +5,8 @@ import {createTripFilterTemplate} from './view/trip-filter-view.js';
 import {createTripSortTemplate} from './view/trip-sort-view.js';
 import {createEventsListTemplate} from './view/events-list-view.js';
 import {createEventItemTemplate} from './view/event-item-view.js';
-import {createEventFormEditTemplate} from "./view/event-form-edit-view";
-import {generateEvent} from "./mock/event-mock";
+import {createEventFormEditTemplate} from './view/event-form-edit-view';
+import {generateEvent} from './mock/event-mock';
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
