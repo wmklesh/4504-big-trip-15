@@ -14,5 +14,5 @@ export const OFFERS = [
   {
     'title': 'Add breakfast',
     'price': 50,
-  }
+  },
 ];
