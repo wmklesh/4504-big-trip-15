@@ -36,23 +36,23 @@ const generateDescription = (length = 1) => {
     descriptions[getRandomInteger(0, descriptions.length - 1)]
   ));
 
-  return (result.join('. ') + '.');
+  return `${result.join('. ')}.`;
 };
 
 const generatePictures = () => (
   Array(getRandomInteger(1, 3)).fill().map(() => ({
-      'src': `http://picsum.photos/248/152?r=${getRandomInteger(1, 1000)}`,
-      'title': generateDescription(),
-    }))
+    'src': `http://picsum.photos/248/152?r=${getRandomInteger(1, 1000)}`,
+    'title': generateDescription(),
+  }))
 );
 
 export const generateEvent = () => ({
   date: generateDate(),
   type: generateType(),
   destination: generateDestination(),
-  base_price: getRandomInteger(10, 200),
+  basePrice: getRandomInteger(10, 200),
   offers: generateOffers(),
-  is_favorite: Boolean(getRandomInteger()),
+  isFavorite: Boolean(getRandomInteger()),
   pictures: generatePictures(),
   description: generateDescription(5),
 });

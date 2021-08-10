@@ -33,7 +33,7 @@ export const createEventFormEditTemplate = (event) => {
 
   const groupTypeTemplate = createEventGroupTypeTemplate(event.type);
   const groupOfferTemplate = createEventGroupOfferTemplate(OFFERS, event.offers);
-  const totalPrice = event.base_price + sumEventOffers(event);
+  const totalPrice = event.basePrice + sumEventOffers(event);
 
   const startTimeStr = dayjs(event.date.from).format('DD/MM/YY HH:mm');
   const endTimeStr = dayjs(event.date.to).format('DD/MM/YY HH:mm');
