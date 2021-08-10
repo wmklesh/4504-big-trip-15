@@ -5,6 +5,7 @@ import {createTripFilterTemplate} from './view/trip-filter-view.js';
 import {createTripSortTemplate} from './view/trip-sort-view.js';
 import {createEventsListTemplate} from './view/events-list-view.js';
 import {createEventItemTemplate} from './view/event-item-view.js';
+import {createEventFormEditTemplate} from "./view/event-form-edit-view";
 import {generateEvent} from "./mock/event-mock";
 
 const render = (container, template, place) => {
@@ -33,6 +34,9 @@ events.forEach((item) => {
 });
 
 render(eventsElement, createEventsListTemplate(eventListTemplate), 'beforeend');
+
+const editEvent = eventsElement.querySelector('.trip-events__item');
+render(editEvent, createEventFormEditTemplate(events[0]), 'beforeend');
 
 function getEvents() {
   const date = Array(15).fill().map(() => {

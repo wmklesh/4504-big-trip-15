@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import {EVENT_TYPES} from "../const";
 import {getRandomInteger} from "../utils";
+import {EVENT_TYPES} from "../const";
+import {OFFERS} from "./offers-mock";
 
 const generateDate = () => {
   const fromDate = dayjs().add(getRandomInteger(-3, 3), 'd').add(getRandomInteger(-12, 12), 'h').set('m', 0).set('s', 0);
@@ -23,27 +24,8 @@ const generateDestination = () => {
 };
 
 const generateOffers = () => {
-  const offers = [
-    {
-      'title': 'Add luggage',
-      'price': 50
-    },
-    {
-      'title': 'Switch to comfort',
-      'price': 80
-    },
-    {
-      'title': 'Rent a car',
-      'price': 200
-    },
-    {
-      'title': 'Add breakfast',
-      'price': 50,
-    }
-  ];
-
   return Array(getRandomInteger(0, 2)).fill().map(() => {
-    return offers[getRandomInteger(0, offers.length - 1)];
+    return OFFERS[getRandomInteger(0, OFFERS.length - 1)];
   });
 };
 
