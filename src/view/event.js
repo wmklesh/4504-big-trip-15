@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import {createElement, twoDigits, sumPriceEventOffers} from '../utils';
 
-const createEventItemTemplate = (event) => {
+const createEventTemplate = (event) => {
   const fromDate = dayjs(event.date.from);
   const toDate = dayjs(event.date.to);
 
@@ -64,14 +64,14 @@ const createEventItemTemplate = (event) => {
   </li>`;
 };
 
-export default class EventItem {
+export default class Event {
   constructor(event) {
     this._element = null;
     this._event = event;
   }
 
   getTemplate() {
-    return createEventItemTemplate(this._event);
+    return createEventTemplate(this._event);
   }
 
   getElement() {
