@@ -1,4 +1,4 @@
-import {render, RenderPosition, getEvents} from "./utils";
+import {render, RenderPosition, getEvents} from './utils';
 import TripInfoView from './view/trip-info';
 import TripCostView from './view/trip-cost';
 import TripNavView from './view/trip-nav';
@@ -7,8 +7,6 @@ import TripSortView from './view/trip-sort';
 import EventListView from './view/event-list';
 import EventView from './view/event';
 import EventEditView from './view/event-edit';
-
-const events = getEvents();
 
 const renderEvent = (eventListElement, event) => {
   const eventComponent = new EventView(event);
@@ -23,20 +21,22 @@ const renderEvent = (eventListElement, event) => {
   };
 
   eventComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    replaceEventToForm()
+    replaceEventToForm();
   });
 
   eventEditComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    replaceFormToEvent()
+    replaceFormToEvent();
   });
 
   eventEditComponent.getElement().querySelector('.event__save-btn').addEventListener('click', (evt) => {
     evt.preventDefault();
-    replaceFormToEvent()
+    replaceFormToEvent();
   });
 
   render(eventListElement, eventComponent.getElement(), RenderPosition.BEFOREEND);
 };
+
+const events = getEvents();
 
 const pageBodyElement = document.querySelector('.page-body');
 const pageHeaderElement = pageBodyElement.querySelector('.page-header');
@@ -52,9 +52,9 @@ render(tripNavElement, new TripNavView().getElement(), RenderPosition.BEFOREEND)
 render(tripFilterElement, new TripFilterView().getElement(), RenderPosition.BEFOREEND);
 render(eventsElement, new TripSortView().getElement(), RenderPosition.BEFOREEND);
 
-const eventListElement = new EventListView().getElement();
-render(eventsElement, eventListElement, RenderPosition.BEFOREEND);
+const eventListComponent = new EventListView();
+render(eventsElement, eventListComponent.getElement(), RenderPosition.BEFOREEND);
 
 events.forEach((item) => {
-  renderEvent(eventListElement, item);
+  renderEvent(eventListComponent.getElement(), item);
 });

@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import {createElement} from '../utils';
 
 const createTripNavTemplate = () => (
   `<nav class="trip-controls__trip-tabs  trip-tabs">

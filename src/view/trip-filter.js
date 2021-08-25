@@ -1,5 +1,5 @@
-import {createElement} from "../utils";
-import {TRIP_FILTERS} from "../const";
+import {createElement} from '../utils';
+import {TRIP_FILTERS} from '../const';
 
 const createTripFilterTemplate = (filterSelect) => (
   `<form class="trip-filters" action="#" method="get">

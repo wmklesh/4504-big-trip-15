@@ -1,4 +1,6 @@
-export const createEventFormAddTemplate = () => (
+import {createElement} from '../utils';
+
+const createEventAddTemplate = () => (
   `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
       <header class="event__header">
@@ -167,3 +169,25 @@ export const createEventFormAddTemplate = () => (
     </form>
   </li>`
 );
+
+export default class EventAdd {
+  constructor(event) {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventAddTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
