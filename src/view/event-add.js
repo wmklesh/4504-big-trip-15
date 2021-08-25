@@ -171,7 +171,7 @@ const createEventAddTemplate = () => (
 );
 
 export default class EventAdd {
-  constructor(event) {
+  constructor() {
     this._element = null;
   }
 

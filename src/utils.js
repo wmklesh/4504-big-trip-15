@@ -1,4 +1,4 @@
-import {generateEvent} from "./mock/event-mock";
+import {generateEvent} from './mock/event-mock';
 
 export const RenderPosition = {
   AFTERBEGIN: 'afterbegin',
