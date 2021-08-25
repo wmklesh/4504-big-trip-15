@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
-import {twoDigits} from '../utils';
-import {sumEventOffers} from '../utils';
+import {createElement, twoDigits, sumPriceEventOffers} from '../utils';
 import {createEventOfferItemTemplate} from '../view/event-offer-item-view.js';
 
 export const createEventItemTemplate = (event) => {
@@ -28,7 +27,7 @@ export const createEventItemTemplate = (event) => {
     offerListTemplate += createEventOfferItemTemplate(offer);
   });
 
-  const totalPrice = event.basePrice + sumEventOffers(event);
+  const totalPrice = event.basePrice + sumPriceEventOffers(event);
 
   return `<li class="trip-events__item">
     <div class="event">
@@ -66,4 +65,3 @@ export const createEventItemTemplate = (event) => {
     </div>
   </li>`;
 };
-
