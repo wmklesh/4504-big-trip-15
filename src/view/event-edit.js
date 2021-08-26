@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {sumEventOffers} from '../utils';
+import {createElement, sumPriceEventOffers} from '../utils';
 import {EVENT_TYPES} from '../const';
 import {OFFERS} from '../mock/offers-mock';
 
@@ -29,11 +29,11 @@ const createEventGroupOfferTemplate = (offers, selectOffers) => (
    </div>`
 );
 
-export const createEventFormEditTemplate = (event) => {
+export const createEventEditTemplate = (event) => {
 
   const groupTypeTemplate = createEventGroupTypeTemplate(event.type);
   const groupOfferTemplate = createEventGroupOfferTemplate(OFFERS, event.offers);
-  const totalPrice = event.basePrice + sumEventOffers(event);
+  const totalPrice = event.basePrice + sumPriceEventOffers(event);
 
   const startTimeStr = dayjs(event.date.from).format('DD/MM/YY HH:mm');
   const endTimeStr = dayjs(event.date.to).format('DD/MM/YY HH:mm');
@@ -103,3 +103,26 @@ export const createEventFormEditTemplate = (event) => {
     </form>
   </li>`;
 };
+
+export default class EventEdit {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+
+  getTemplate() {
+    return createEventEditTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

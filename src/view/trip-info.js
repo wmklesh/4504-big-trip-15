@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+import {createElement} from '../utils';
 
-export const createTripInfoTemplate = (events) => {
+const createTripInfoTemplate = (events) => {
   const routes = [];
 
   events.forEach((item) => {
@@ -10,7 +11,6 @@ export const createTripInfoTemplate = (events) => {
   });
 
   const routerStr = routes.join(' - ');
-
   const fromDate = events[0].date.from;
   const toDate = events[events.length - 1].date.to;
   const datesStr = `${dayjs(fromDate).format('MMM D')} - ${dayjs(toDate).format('D')}`;
@@ -23,3 +23,26 @@ export const createTripInfoTemplate = (events) => {
     </div>
   </section>`;
 };
+
+export default class TripInfo {
+  constructor(events) {
+    this._element = null;
+    this._events = events;
+  }
+
+  getTemplate() {
+    return createTripInfoTemplate(this._events);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

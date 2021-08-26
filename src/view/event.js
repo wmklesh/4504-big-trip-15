@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
-import {twoDigits} from '../utils';
-import {sumEventOffers} from '../utils';
-import {createEventOfferItemTemplate} from '../view/event-offer-item-view.js';
+import {createElement, twoDigits, sumPriceEventOffers} from '../utils';
 
-export const createEventItemTemplate = (event) => {
+const createEventTemplate = (event) => {
   const fromDate = dayjs(event.date.from);
   const toDate = dayjs(event.date.to);
 
@@ -23,12 +21,7 @@ export const createEventItemTemplate = (event) => {
     + (diffTimeHours ? `${twoDigits(diffTimeHours)}H ` : '')
     + (diffTimeMinutes ? `${twoDigits(diffTimeMinutes)}M` : '');
 
-  let offerListTemplate = '';
-  event.offers.forEach((offer) => {
-    offerListTemplate += createEventOfferItemTemplate(offer);
-  });
-
-  const totalPrice = event.basePrice + sumEventOffers(event);
+  const totalPrice = event.basePrice + sumPriceEventOffers(event);
 
   return `<li class="trip-events__item">
     <div class="event">
@@ -50,9 +43,13 @@ export const createEventItemTemplate = (event) => {
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
-        <li class="event__offer">
-          ${offerListTemplate}
-        </li>
+        ${event.offers.map((item) => (`
+          <li class="event__offer">
+            <span class="event__offer-title">${item.title}</span>
+            &plus;&euro;&nbsp;
+            <span class="event__offer-price">${item.price}</span>
+          </li>
+        `)).join('')}
       </ul>
       <button class="event__favorite-btn ${event.isFavorite ? 'event__favorite-btn--active' : ''}" type="button">
         ${event.isFavorite ? '<span class="visually-hidden">Add to favorite</span>' : ''}
@@ -67,3 +64,25 @@ export const createEventItemTemplate = (event) => {
   </li>`;
 };
 
+export default class Event {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+
+  getTemplate() {
+    return createEventTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
