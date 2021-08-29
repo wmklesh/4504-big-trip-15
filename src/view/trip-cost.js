@@ -1,5 +1,5 @@
 import AbstractView from './abstract';
-import {sumEventOffersPrice} from '../utils';
+import {sumEventOffersPrice} from '../utils/event';
 
 const createTripCostTemplate = (events) => {
   const cost = events.reduce((sum, event) => (

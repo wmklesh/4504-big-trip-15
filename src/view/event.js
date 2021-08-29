@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import AbstractView from './abstract';
-import {twoDigits, sumEventOffersPrice} from '../utils';
+import {twoDigits} from '../utils/common';
+import {sumEventOffersPrice} from '../utils/event';
 
 const createEventTemplate = (event) => {
   const fromDate = dayjs(event.date.from);

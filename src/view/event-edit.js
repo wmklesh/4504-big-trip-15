@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import AbstractView from './abstract';
-import {sumEventOffersPrice} from '../utils';
+import {sumEventOffersPrice} from '../utils/event';
 import {EVENT_TYPES} from '../const';
 import {OFFERS} from '../mock/offers-mock';
 
