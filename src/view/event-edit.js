@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import {createElement, sumPriceEventOffers} from '../utils';
+import AbstractView from './abstract';
+import {sumEventOffersPrice} from '../utils';
 import {EVENT_TYPES} from '../const';
 import {OFFERS} from '../mock/offers-mock';
 
@@ -33,7 +34,7 @@ export const createEventEditTemplate = (event) => {
 
   const groupTypeTemplate = createEventGroupTypeTemplate(event.type);
   const groupOfferTemplate = createEventGroupOfferTemplate(OFFERS, event.offers);
-  const totalPrice = event.basePrice + sumPriceEventOffers(event);
+  const totalPrice = event.basePrice + sumEventOffersPrice(event);
 
   const startTimeStr = dayjs(event.date.from).format('DD/MM/YY HH:mm');
   const endTimeStr = dayjs(event.date.to).format('DD/MM/YY HH:mm');
@@ -104,25 +105,14 @@ export const createEventEditTemplate = (event) => {
   </li>`;
 };
 
-export default class EventEdit {
+export default class EventEdit extends AbstractView {
   constructor(event) {
-    this._element = null;
+    super();
+
     this._event = event;
   }
 
   getTemplate() {
     return createEventEditTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

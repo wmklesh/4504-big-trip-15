@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import {createElement, twoDigits, sumPriceEventOffers} from '../utils';
+import AbstractView from './abstract';
+import {twoDigits, sumEventOffersPrice} from '../utils';
 
 const createEventTemplate = (event) => {
   const fromDate = dayjs(event.date.from);
@@ -21,7 +22,7 @@ const createEventTemplate = (event) => {
     + (diffTimeHours ? `${twoDigits(diffTimeHours)}H ` : '')
     + (diffTimeMinutes ? `${twoDigits(diffTimeMinutes)}M` : '');
 
-  const totalPrice = event.basePrice + sumPriceEventOffers(event);
+  const totalPrice = event.basePrice + sumEventOffersPrice(event);
 
   return `<li class="trip-events__item">
     <div class="event">
@@ -64,25 +65,14 @@ const createEventTemplate = (event) => {
   </li>`;
 };
 
-export default class Event {
+export default class Event extends AbstractView {
   constructor(event) {
-    this._element = null;
+    super();
+
     this._event = event;
   }
 
   getTemplate() {
     return createEventTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

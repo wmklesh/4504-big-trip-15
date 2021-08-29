@@ -1,4 +1,3 @@
-import {render, RenderPosition, getEvents} from './utils';
 import TripInfoView from './view/trip-info';
 import TripCostView from './view/trip-cost';
 import TripNavView from './view/trip-nav';
@@ -8,6 +7,12 @@ import EventListView from './view/event-list';
 import EventView from './view/event';
 import EventEditView from './view/event-edit';
 import NoEventView from './view/no-event';
+import {render, RenderPosition, sortEventByDate} from './utils';
+import {generateEvent} from './mock/event-mock';
+
+const EVENT_COUNT = 15;
+
+const events = sortEventByDate(new Array(EVENT_COUNT).fill().map(generateEvent));
 
 const renderEvent = (eventListElement, event) => {
   const eventComponent = new EventView(event);
@@ -47,8 +52,6 @@ const renderEvent = (eventListElement, event) => {
   render(eventListElement, eventComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
-const events = getEvents();
-
 const pageBodyElement = document.querySelector('.page-body');
 const pageHeaderElement = pageBodyElement.querySelector('.page-header');
 const tripMainElement = pageHeaderElement.querySelector('.trip-main');
@@ -68,7 +71,7 @@ if (events.length === 0) {
   const tripInfoElement = new TripInfoView(events).getElement();
   render(tripMainElement, tripInfoElement, RenderPosition.AFTERBEGIN);
   render(tripInfoElement, new TripCostView(events).getElement(), RenderPosition.BEFOREEND);
-  render(eventsElement, new TripSortView().getElement(), RenderPosition.BEFOREEND);
+  render(eventsElement, new TripSortView().getElement(), RenderPosition.AFTERBEGIN);
 
   events.forEach((item) => {
     renderEvent(eventListComponent.getElement(), item);
