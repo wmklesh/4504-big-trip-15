@@ -16,7 +16,6 @@ const createTripFilterTemplate = (filterSelect) => (
 export default class TripNav extends AbstractView {
   constructor() {
     super();
-
     this._filterSelect = TRIP_FILTERS[0];
   }
 

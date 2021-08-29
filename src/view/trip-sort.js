@@ -14,7 +14,6 @@ const createTripSortTemplate = (sorts) => (
 export default class TripSort extends AbstractView {
   constructor() {
     super();
-
     this._sorts = {
       Day: 'checked',
       Event: 'disabled',

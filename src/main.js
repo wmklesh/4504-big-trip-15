@@ -34,12 +34,12 @@ const renderEvent = (eventListElement, event) => {
     }
   };
 
-  eventComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+  eventComponent.setEditClickHandler(() => {
     replaceEventToForm();
     document.addEventListener('keydown', onEscKeyDown);
   });
 
-  eventEditComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+  eventEditComponent.setEditClickHandler(() => {
     replaceFormToEvent();
     document.removeEventListener('keydown', onEscKeyDown);
   });

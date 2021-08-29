@@ -14,7 +14,6 @@ const createTripCostTemplate = (events) => {
 export default class TripCost extends AbstractView {
   constructor(events) {
     super();
-
     this._events = events;
   }
 
