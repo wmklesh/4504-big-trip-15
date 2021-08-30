@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import {createElement, sumPriceEventOffers} from '../utils';
+import AbstractView from './abstract';
+import {sumEventOffersPrice} from '../utils/event';
 import {EVENT_TYPES} from '../const';
 import {OFFERS} from '../mock/offers-mock';
 
@@ -33,7 +34,7 @@ export const createEventEditTemplate = (event) => {
 
   const groupTypeTemplate = createEventGroupTypeTemplate(event.type);
   const groupOfferTemplate = createEventGroupOfferTemplate(OFFERS, event.offers);
-  const totalPrice = event.basePrice + sumPriceEventOffers(event);
+  const totalPrice = event.basePrice + sumEventOffersPrice(event);
 
   const startTimeStr = dayjs(event.date.from).format('DD/MM/YY HH:mm');
   const endTimeStr = dayjs(event.date.to).format('DD/MM/YY HH:mm');
@@ -104,25 +105,24 @@ export const createEventEditTemplate = (event) => {
   </li>`;
 };
 
-export default class EventEdit {
+export default class EventEdit extends AbstractView {
   constructor(event) {
-    this._element = null;
+    super();
     this._event = event;
+    this._editClickHandler = this._editClickHandler.bind(this);
   }
 
   getTemplate() {
     return createEventEditTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _editClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.editClick();
   }
 
-  removeElement() {
-    this._element = null;
+  setEditClickHandler(callback) {
+    this._callback.editClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
   }
 }

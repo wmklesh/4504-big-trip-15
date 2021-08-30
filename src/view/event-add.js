@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import AbstractView from './abstract';
 
 const createEventAddTemplate = () => (
   `<li class="trip-events__item">
@@ -170,24 +170,8 @@ const createEventAddTemplate = () => (
   </li>`
 );
 
-export default class EventAdd {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EventAdd extends AbstractView {
   getTemplate() {
     return createEventAddTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
