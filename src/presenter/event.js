@@ -1,8 +1,7 @@
-import EventView from '../view/event';
-import EventEditView from '../view/event-edit';
 import EventListView from '../view/event-list';
 import EventSortView from '../view/event-sort';
 import NoEventView from '../view/no-event';
+import PointPresenter from './point';
 import {render, RenderPosition, replace} from '../utils/render';
 
 export default class Event {
@@ -39,47 +38,14 @@ export default class Event {
     render(this._eventContainer, this._noEventComponent, RenderPosition.BEFOREEND);
   }
 
-  _renderEvent(event) {
-    const eventComponent = new EventView(event);
-    const eventEditComponent = new EventEditView(event);
-
-    const replaceEventToForm = () => {
-      replace(eventEditComponent, eventComponent);
-    };
-
-    const replaceFormToEvent = () => {
-      replace(eventComponent, eventEditComponent);
-    };
-
-    const onEscKeyDown = (evt) => {
-      if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        replaceFormToEvent();
-        document.removeEventListener('keydown', onEscKeyDown);
-      }
-    };
-
-    eventComponent.setEditClickHandler(() => {
-      replaceEventToForm();
-      document.addEventListener('keydown', onEscKeyDown);
-    });
-
-    eventEditComponent.setEditClickHandler(() => {
-      replaceFormToEvent();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
-
-    eventEditComponent.getElement().querySelector('.event__save-btn').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      replaceFormToEvent();
-    });
-
-    render(this._listComponent, eventComponent, RenderPosition.BEFOREEND);
+  _renderPoint(point) {
+    const pointPresenter = new PointPresenter(this._listComponent);
+    pointPresenter.init(point);
   }
 
   _renderEvents() {
     this._events.forEach((item) => {
-      this._renderEvent(item);
+      this._renderPoint(item);
     });
   }
 }
