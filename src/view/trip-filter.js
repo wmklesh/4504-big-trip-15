@@ -1,25 +1,41 @@
 import AbstractView from './abstract';
-import {TRIP_FILTERS} from '../const';
+import {FilterType} from '../const';
 
 const createTripFilterTemplate = (filterSelect) => (
   `<form class="trip-filters" action="#" method="get">
-    ${TRIP_FILTERS.map((item) => (`
+    ${Object.entries(FilterType).map(([type, sort]) => (`
       <div class="trip-filters__filter">
-        <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${String(item).toLowerCase()}" ${item === filterSelect ? 'checked' : ''}>
-        <label class="trip-filters__filter-label" for="filter-everything">${item}</label>
+        <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${sort}" data-sort-type="${sort}" ${sort === filterSelect ? 'checked' : ''}>
+        <label class="trip-filters__filter-label" for="filter-everything">${sort}</label>
     </div>
     `)).join('')}
     <button class="visually-hidden" type="submit">Accept filter</button>
   </form>`
 );
 
-export default class TripNav extends AbstractView {
+export default class TripFilter extends AbstractView {
   constructor() {
     super();
-    this._filterSelect = TRIP_FILTERS[0];
+    this._filterSelect = FilterType.EVERYTHING;
+
+    this._filerTypeChangeHandler = this._filerTypeChangeHandler.bind(this);
   }
 
   getTemplate() {
     return createTripFilterTemplate(this._filterSelect);
+  }
+
+  _filterTypeChangeHandler(evt) {
+    if (evt.target.tagName !== 'A') {
+      return;
+    }
+
+    evt.preventDefault();
+    this._callback.filterTypeChange(evt.target.dataset.FilterType);
+  }
+
+  setFilterTypeChangeHandler(callback) {
+    this._callback.filterTypeChange = callback;
+    this.getElement().addEventListener('click', this._filterTypeChangeHandler);
   }
 }
