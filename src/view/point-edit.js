@@ -106,19 +106,19 @@ export const createEventEditTemplate = (event) => {
 };
 
 export default class PointEdit extends AbstractView {
-  constructor(event) {
+  constructor(point) {
     super();
-    this._event = event;
+    this._point = point;
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
   }
 
   getTemplate() {
-    return createEventEditTemplate(this._event);
+    return createEventEditTemplate(this._point);
   }
 
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._callback.formSubmit(this._event);
+    this._callback.formSubmit(this._point);
   }
 
   setFormSubmitHandler(callback) {
