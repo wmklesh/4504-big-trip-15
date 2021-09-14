@@ -18,7 +18,7 @@ export default class TripFilter extends AbstractView {
     super();
     this._filterSelect = FilterType.EVERYTHING;
 
-    this._filerTypeChangeHandler = this._filerTypeChangeHandler.bind(this);
+    this._filterTypeChangeHandler = this._filterTypeChangeHandler.bind(this);
   }
 
   getTemplate() {

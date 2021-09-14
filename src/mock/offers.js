@@ -1,4 +1,4 @@
-export const OFFERS = [
+export const OfferList = [
   {
     'title': 'Add luggage',
     'price': 50,

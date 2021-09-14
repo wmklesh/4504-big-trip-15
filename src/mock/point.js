@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import {nanoid} from 'nanoid';
 import {getRandomInteger} from '../utils/common';
-import {EVENT_TYPES} from '../const';
-import {OFFERS} from './offers-mock';
+import {POINT_TYPES} from '../const';
+import {OfferList} from './offers';
 
 const generateDate = () => {
   const fromDate = dayjs().add(getRandomInteger(-3, 3), 'd').add(getRandomInteger(-12, 12), 'h').set('m', 0).set('s', 0);
@@ -15,7 +15,7 @@ const generateDate = () => {
 };
 
 const generateType = () => (
-  EVENT_TYPES[getRandomInteger(0, EVENT_TYPES.length - 1)]
+  POINT_TYPES[getRandomInteger(0, POINT_TYPES.length - 1)]
 );
 
 const generateDestination = () => {
@@ -25,7 +25,7 @@ const generateDestination = () => {
 };
 
 const generateOffers = () => (
-  Array(getRandomInteger(0, 2)).fill().map(() => (OFFERS[getRandomInteger(0, OFFERS.length - 1)]))
+  Array(getRandomInteger(0, 2)).fill().map(() => (OfferList[getRandomInteger(0, OfferList.length - 1)]))
 );
 
 const generateDescription = (length = 1) => {
@@ -47,7 +47,7 @@ const generatePictures = () => (
   }))
 );
 
-export const generateEvent = () => ({
+export const generatePoint = () => ({
   id: nanoid(),
   date: generateDate(),
   type: generateType(),
