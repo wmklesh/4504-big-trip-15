@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import {nanoid} from 'nanoid';
 import {getRandomInteger} from '../utils/common';
 import {EVENT_TYPES} from '../const';
 import {OFFERS} from './offers-mock';
@@ -47,6 +48,7 @@ const generatePictures = () => (
 );
 
 export const generateEvent = () => ({
+  id: nanoid(),
   date: generateDate(),
   type: generateType(),
   destination: generateDestination(),

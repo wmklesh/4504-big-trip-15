@@ -170,7 +170,7 @@ const createEventAddTemplate = () => (
   </li>`
 );
 
-export default class EventAdd extends AbstractView {
+export default class Event extends AbstractView {
   getTemplate() {
     return createEventAddTemplate();
   }
