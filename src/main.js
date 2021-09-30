@@ -2,7 +2,7 @@ import TripPresenter from './presenter/trip';
 import {sortByDate} from './utils/point';
 import {generatePoint} from './mock/point';
 
-const POINT_COUNT = 0;
+const POINT_COUNT = 15;
 
 const points = sortByDate(new Array(POINT_COUNT).fill().map(generatePoint));
 
