@@ -6,7 +6,7 @@ const createTripSortTemplate = (currentSortType) => (
     ${Object.entries(SortType).map(([type, sort]) => (`
       <div class="trip-sort__item  trip-sort__item--${sort}">
         <input id="sort-${sort}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${sort}" ${sort === currentSortType ? 'checked' : ''}>
-        <label class="trip-sort__btn" for="sort-${sort}" data-sort-type="${sort}">${sort}</label>
+        <label class="trip-sort__btn" for="sort-${sort}" data-sort-type="${sort}">${type}</label>
       </div>
     `)).join('')}
   </form>`
@@ -25,13 +25,11 @@ export default class TripSort extends AbstractView {
   }
 
   _sortTypeChangeHandler(evt) {
-    console.log(1);
     if (evt.target.tagName !== 'LABEL' && evt.target.tagName !== 'INPUT') {
       return;
     }
-    console.log(2);
 
-    //evt.preventDefault();
+    evt.preventDefault();
     this._callback.sortTypeChange(evt.target.dataset.sortType);
   }
 

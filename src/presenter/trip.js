@@ -157,7 +157,7 @@ export default class Trip {
     if (this._currentSortType === sortType) {
       return;
     }
-    console.log(sortType);
+
     remove(this._sortComponent);
     this._sortComponent = new SortView(sortType);
     this._renderSort();

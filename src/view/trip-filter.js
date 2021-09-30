@@ -6,7 +6,7 @@ const createTripFilterTemplate = (currentFilterType) => (
     ${Object.entries(FilterType).map(([type, filter]) => (`
       <div class="trip-filters__filter">
         <input id="filter-${filter}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filter}" ${filter === currentFilterType ? 'checked' : ''}>
-        <label class="trip-filters__filter-label" for="filter-${filter}" data-filter-type="${filter}">${filter}</label>
+        <label class="trip-filters__filter-label" for="filter-${filter}" data-filter-type="${filter}">${type}</label>
       </div>
     `)).join('')}
     <button class="visually-hidden" type="submit">Accept filter</button>
@@ -30,7 +30,7 @@ export default class TripFilter extends AbstractView {
       return;
     }
 
-    //evt.preventDefault();
+    evt.preventDefault();
     this._callback.filterTypeChange(evt.target.dataset.filterType);
   }
 
