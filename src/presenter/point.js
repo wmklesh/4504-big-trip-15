@@ -54,7 +54,7 @@ export default class Point {
     remove(prevPointEditComponent);
   }
 
-  _destroy() {
+  destroy() {
     remove(this._pointComponent);
     remove(this._pointEditComponent);
   }

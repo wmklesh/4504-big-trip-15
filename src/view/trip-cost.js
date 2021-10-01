@@ -1,9 +1,9 @@
 import AbstractView from './abstract';
-import {sumEventOffersPrice} from '../utils/event';
+import {sumOffersPrice} from '../utils/point';
 
-const createTripCostTemplate = (events) => {
-  const cost = events.reduce((sum, event) => (
-    sum += event.basePrice + sumEventOffersPrice(event)
+const createTripCostTemplate = (points) => {
+  const cost = points.reduce((sum, point) => (
+    sum += point.basePrice + sumOffersPrice(point)
   ), 0);
 
   return `<p class="trip-info__cost">
@@ -12,12 +12,12 @@ const createTripCostTemplate = (events) => {
 };
 
 export default class TripCost extends AbstractView {
-  constructor(events) {
+  constructor(points) {
     super();
-    this._events = events;
+    this._points = points;
   }
 
   getTemplate() {
-    return createTripCostTemplate(this._events);
+    return createTripCostTemplate(this._points);
   }
 }

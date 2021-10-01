@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import AbstractView from './abstract';
-import {sumEventOffersPrice} from '../utils/event';
-import {EVENT_TYPES} from '../const';
-import {OFFERS} from '../mock/offers-mock';
+import {sumOffersPrice} from '../utils/point';
+import {POINT_TYPES} from '../const';
+import {OfferList} from '../mock/offers';
 
 const createEventGroupTypeTemplate = (type) => (
   `<fieldset class="event__type-group">
     <legend class="visually-hidden">Event type</legend>
-    ${EVENT_TYPES.map((item) => (`
+    ${POINT_TYPES.map((item) => (`
       <div class="event__type-item">
         <input id="event-type-${String(item).toLowerCase()}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}" ${item === type ? 'checked' : ''}>
         <label class="event__type-label  event__type-label--${String(item).toLowerCase()}" for="event-type-${String(item).toLowerCase()}-1">${item}</label>
@@ -33,8 +33,8 @@ const createEventGroupOfferTemplate = (offers, selectOffers) => (
 export const createEventEditTemplate = (event) => {
 
   const groupTypeTemplate = createEventGroupTypeTemplate(event.type);
-  const groupOfferTemplate = createEventGroupOfferTemplate(OFFERS, event.offers);
-  const totalPrice = event.basePrice + sumEventOffersPrice(event);
+  const groupOfferTemplate = createEventGroupOfferTemplate(OfferList, event.offers);
+  const totalPrice = event.basePrice + sumOffersPrice(event);
 
   const startTimeStr = dayjs(event.date.from).format('DD/MM/YY HH:mm');
   const endTimeStr = dayjs(event.date.to).format('DD/MM/YY HH:mm');

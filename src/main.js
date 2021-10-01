@@ -1,18 +1,13 @@
 import TripPresenter from './presenter/trip';
-import EventPresenter from './presenter/event';
-import {sortEventByDate} from './utils/event';
-import {generateEvent} from './mock/event-mock';
+import {sortByDate} from './utils/point';
+import {generatePoint} from './mock/point';
 
-const EVENT_COUNT = 15;
+const POINT_COUNT = 15;
 
-const events = sortEventByDate(new Array(EVENT_COUNT).fill().map(generateEvent));
+const points = sortByDate(new Array(POINT_COUNT).fill().map(generatePoint));
 
-const pageBodyElement = document.querySelector('.page-body');
-const tripElement = pageBodyElement.querySelector('.trip-main');
-const eventElement = pageBodyElement.querySelector('.trip-events');
+const tripElement = document.querySelector('.trip-main');
+const listElement = document.querySelector('.trip-events');
 
-const tripPresenter = new TripPresenter(tripElement);
-tripPresenter.init(events);
-
-const eventPresenter = new EventPresenter(eventElement);
-eventPresenter.init(events);
+const tripPresenter = new TripPresenter(tripElement, listElement);
+tripPresenter.init(points);
