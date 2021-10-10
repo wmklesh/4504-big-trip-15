@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import AbstractView from './abstract';
+import SmartView from './smart';
 import {sumOffersPrice} from '../utils/point';
 import {POINT_TYPES} from '../const';
 import {OfferList} from '../mock/offers';
@@ -10,7 +10,7 @@ const createEventGroupTypeTemplate = (type) => (
     ${POINT_TYPES.map((item) => (`
       <div class="event__type-item">
         <input id="event-type-${String(item).toLowerCase()}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}" ${item === type ? 'checked' : ''}>
-        <label class="event__type-label  event__type-label--${String(item).toLowerCase()}" for="event-type-${String(item).toLowerCase()}-1">${item}</label>
+        <label class="event__type-label  event__type-label--${String(item).toLowerCase()}" for="event-type-${String(item).toLowerCase()}-1" data-type="${item}">${item}</label>
       </div>`)).join('')}
     </fieldset>`
 );
@@ -30,14 +30,13 @@ const createEventGroupOfferTemplate = (offers, selectOffers) => (
    </div>`
 );
 
-export const createEventEditTemplate = (event) => {
+export const createEventEditTemplate = (data) => {
 
-  const groupTypeTemplate = createEventGroupTypeTemplate(event.type);
-  const groupOfferTemplate = createEventGroupOfferTemplate(OfferList, event.offers);
-  const totalPrice = event.basePrice + sumOffersPrice(event);
+  const groupTypeTemplate = createEventGroupTypeTemplate(data.type);
+  const groupOfferTemplate = createEventGroupOfferTemplate(OfferList, data.offers);
 
-  const startTimeStr = dayjs(event.date.from).format('DD/MM/YY HH:mm');
-  const endTimeStr = dayjs(event.date.to).format('DD/MM/YY HH:mm');
+  const startTimeStr = dayjs(data.date.from).format('DD/MM/YY HH:mm');
+  const endTimeStr = dayjs(data.date.to).format('DD/MM/YY HH:mm');
 
   return `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
@@ -45,7 +44,7 @@ export const createEventEditTemplate = (event) => {
         <div class="event__type-wrapper">
           <label class="event__type  event__type-btn" for="event-type-toggle-1">
             <span class="visually-hidden">Choose event type</span>
-            <img class="event__type-icon" width="17" height="17" src="img/icons/${event.type}.png" alt="Event type icon">
+            <img class="event__type-icon" width="17" height="17" src="img/icons/${data.type}.png" alt="Event type icon">
           </label>
           <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -56,9 +55,9 @@ export const createEventEditTemplate = (event) => {
 
         <div class="event__field-group  event__field-group--destination">
           <label class="event__label  event__type-output" for="event-destination-1">
-            ${event.type}
+            ${data.type}
           </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${event.destination}" list="destination-list-1">
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${data.destination}" list="destination-list-1">
           <datalist id="destination-list-1">
             <option value="Amsterdam"></option>
             <option value="Geneva"></option>
@@ -79,7 +78,7 @@ export const createEventEditTemplate = (event) => {
             <span class="visually-hidden">Price</span>
             &euro;
           </label>
-          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${totalPrice}">
+          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${data.totalPrice}">
         </div>
 
         <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -97,7 +96,7 @@ export const createEventEditTemplate = (event) => {
         <section class="event__section  event__section--destination">
           <h3 class="event__section-title  event__section-title--destination">Destination</h3>
           <p class="event__destination-description">
-            ${event.description}
+            ${data.description}
           </p>
         </section>
       </section>
@@ -105,25 +104,82 @@ export const createEventEditTemplate = (event) => {
   </li>`;
 };
 
-export default class PointEdit extends AbstractView {
+export default class PointEdit extends SmartView {
   constructor(point) {
     super();
-    this._point = point;
+    this._data = PointEdit.parsePointToData(point);
+
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._typeChangeHandler = this._typeChangeHandler.bind(this);
+    this._destinationInputHandler = this._destinationInputHandler.bind(this);
+
+    this._setInnerHandlers();
   }
 
   getTemplate() {
-    return createEventEditTemplate(this._point);
+    return createEventEditTemplate(this._data);
+  }
+
+  reset(point) {
+    this.updateData(
+      PointEdit.parsePointToData(point),
+    );
+  }
+
+  restoreHandlers() {
+    this._setInnerHandlers();
+    this.setFormSubmitHandler(this._callback.formSubmit);
+  }
+
+  _setInnerHandlers() {
+    this.getElement()
+      .querySelector('.event__type-group')
+      .addEventListener('click', this._typeChangeHandler);
+    this.getElement()
+      .querySelector('.event__input--destination')
+      .addEventListener('input', this._destinationInputHandler);
+  }
+
+  _typeChangeHandler(evt) {
+    evt.preventDefault();
+    this.updateData({
+      type: evt.target.dataset.type,
+    });
+  }
+
+  _destinationInputHandler(evt) {
+    evt.preventDefault();
+    this.updateData({
+      destination: evt.target.value,
+    }, true);
   }
 
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._callback.formSubmit(this._point);
+    this._callback.formSubmit(PointEdit.parseDataToPoint(this._data));
   }
 
   setFormSubmitHandler(callback) {
     this._callback.formSubmit = callback;
     this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._formSubmitHandler);
     this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
+  }
+
+  static parsePointToData(point) {
+    return Object.assign(
+      {},
+      point,
+      {
+        totalPrice: point.basePrice + sumOffersPrice(point),
+      },
+    );
+  }
+
+  static parseDataToPoint(data) {
+    data = Object.assign({}, data);
+
+    delete data.totalPrice;
+
+    return data;
   }
 }
